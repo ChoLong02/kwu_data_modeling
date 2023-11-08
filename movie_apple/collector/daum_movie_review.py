@@ -20,6 +20,7 @@
 import time
 import re
 import math
+from datetime import datetime
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -79,5 +80,28 @@ time.sleep(5)
 #  5-3.전체 소스코드 가져오기(리뷰: 모드 Open)
 doc_html = driver.page_source
 doc = BeautifulSoup(doc_html, "html.parser")
-review_list = doc.select("")
+review_list = doc.select("ul.list_comment > li")
 
+for tag in review_list:
+    # 5-4. 리뷰(댓글, 작성자, 평점, 날짜) 수집
+    print("="*100)
+    review_score = tag.select("div.ratings")[0].get_text()  # 평점
+    print(f" - 평점: {review_score}")
+
+    review_writer = tag.select("a.link_nick > span")[1].get_text().strip()  # 작성자
+    print(f" - 작성자: {review_writer}")
+
+    review_reply = tag.select("p.desc_txt")[0].get_text().strip() # 댓글
+    print(f" - 리뷰: {review_reply}")
+
+    original_date = tag.select("span.txt_date")[0].get_text()
+    idx = original_date.rfind(".")
+    review_date = original_date[:idx]
+    review_date = re.sub(r"[^~0-9]", "", review_date)
+
+    if len(review_date) <= 2:  # 3시간전, 23시간전
+        today = datetime.today()  # 현재 날짜시간
+        review_date = str(today.year) + str(today.month) + str(today.day)
+    print(f" - 날짜: {review_date}")
+
+# print(len(review_list))
