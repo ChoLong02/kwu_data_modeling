@@ -27,18 +27,46 @@
 #  - Update: 수정 → UPDATE
 #  - Delete: 삭제 → DELETE
 
+# ** RDB(관계형 데이터베이스) 구조
+#  RDB = (Oracle, MySQL, MariaDB)
+#  DBMS(데이터베이스 관리 시스템)  :  시스템
+#   ㄴ 데이터베이스(카카오톡)  :  폴더
+#         ㄴ 테이블(회원)   : 표
+#         ㄴ 테이블(메세지)
+#   ㄴ 데이터베이스(카카오뱅크)
+#         ㄴ 테이블(회원)
+#         ㄴ 테이블(계좌)
+#   ㄴ 데이터베이스(kwu_db)
+#         ㄴ 테이블(영화리뷰)
+
+# **autocommit
+#  - commit: 데이터베이스 적용!
+#  - commit이 필요한 경우: INSERT, DELETE, UPDATE
+
+# 관계형 데이터베이스 1, 2, 3번 게시글 저장
+#  - SQL: 2번 삭제
+#  - SQL: 1번 수정
+#  - SQL: Commit
+
+
+# pymysql(라이브러리) : python - mariaDB(mysql)을 연결하고 사용할 수 있는 코드
+
 import pymysql
 
-# DB 연결
-def conn():
-    conn = pymysql.connect(
-        host="127.0.0.1",  # IP
-        port=3306,
-        user="root",       # ID(root:최고관리자)
-        password="1234",   # PW
-        db="",
-        charset="utf8",
-        autocommit=True,
-        cursorclass=pymysql.cursors.DictCursor
-    )
 
+# DB 연결
+def connection():
+    try:
+        conn = pymysql.connect(
+            host="127.0.0.1",  # IP
+            port=3306,         # PORT
+            user="root",       # ID(root:최고관리자)
+            password="1234",   # PW
+            db="kwu_db",
+            charset="utf8",
+            autocommit=True,
+            cursorclass=pymysql.cursors.DictCursor
+        )
+        return conn
+    except pymysql.Error as e:
+        print(f"MARIADB 연결 실패: {e}")

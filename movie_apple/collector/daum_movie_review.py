@@ -21,6 +21,7 @@ import time
 import re
 import math
 from datetime import datetime
+from movie_apple.db.review_dao import add_review
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -104,4 +105,10 @@ for tag in review_list:
         review_date = str(today.year) + str(today.month) + str(today.day)
     print(f" - 날짜: {review_date}")
 
-# print(len(review_list))
+    data = {
+        "review": review_reply,
+        "score": review_score,
+        "writer": review_writer,
+        "reg_date": review_date
+    }
+    add_review(data)
