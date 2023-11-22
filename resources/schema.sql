@@ -2,6 +2,7 @@
 
 CREATE TABLE `tbl_review` (
 	`no` INT(10) NOT NULL AUTO_INCREMENT,
+	`title` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`review` VARCHAR(500) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	`score` INT(10) NOT NULL DEFAULT '0',
 	`writer` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',

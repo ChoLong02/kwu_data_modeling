@@ -40,7 +40,7 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
                           options=options)
 
 # 2.URL 접속
-url = "https://movie.daum.net/moviedb/grade?movieId=165591"
+url = "https://movie.daum.net/moviedb/grade?movieId=169137"
 driver.get(url)
 time.sleep(1)
 
@@ -106,6 +106,7 @@ for tag in review_list:
     print(f" - 날짜: {review_date}")
 
     data = {
+        "title": title,
         "review": review_reply,
         "score": review_score,
         "writer": review_writer,

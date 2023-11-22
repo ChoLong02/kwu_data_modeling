@@ -9,8 +9,8 @@ def add_review(data):
     try:
         curs = conn.cursor()
         sql = f"""
-                INSERT INTO tbl_review(review, score, writer, reg_date)
-                VALUES (%(review)s, %(score)s, %(writer)s, %(reg_date)s);
+                INSERT INTO tbl_review(title, review, score, writer, reg_date)
+                VALUES (%(title)s, %(review)s, %(score)s, %(writer)s, %(reg_date)s);
               """
         curs.execute(sql, data)
     except Exception as e:
